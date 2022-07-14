@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h3 class="m-4">作成待機中分布リスト</h2>
+<div class="form">
+    <form class="m-4" action="/create" method='GET'>
+        <table class="table table-striped">
+            <!--caption>List of users</caption-->
+            <!--thead class="thead-light"-->
+                <tr>
+                    <th>帯域幅</th><th>確率分布</th><th>励振生成時間</th><th>生成時間幅</th>
+                    <th>標本数</th><th>分布時間幅</th><th>入力時間</th><th>分割幅</th>
+                    <th>グラフ範囲</th>
+                </tr>
+            <!--/thead-->
+            <tr>
+                <td>{{st_list[1]}}</td><td>{{st_list[0]}}</td>
+                <td>{{st_list[4]}}</td><td>{{st_list[3]}}</td>
+                <td>{{st_list[2]}}</td><td>{{st_list[8]}}</td>
+                <td>{{st_list[5]}}</td><td>{{st_list[6]}}</td>
+                <td>{{st_list[7]}}</td>
+            </tr>
+        </table>
+        <a class="btn btn-outline-primary" href="/create" role="button">Add to List Again</a>
+    </form>
+</div>
+{% endblock %}

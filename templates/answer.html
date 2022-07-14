@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h3 class="m-4">第{{numberProblem}}問（{{numCorrect}}問正解）</h3>
+<div class="form">
+    <form class="m-4" action="/create" method='GET'>
+        <h1 class="m-4">{{JudgeWord}}</h1>
+        <a class="btn btn-outline-primary" href="/problem" role="button">次の問題へ</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h3 class="m-4">第{{numberProblem}}問（{{numCorrect}}問正解）</h2>
+<div class="form">
+    <form class="m-4" method="POST">
+        <!--h6>{{sent_wav}}</h6-->
+        <audio controls="" src="/static/mp3/{{sent_wav}}" id="problem_sound"></audio>
+        <div>
+			<label for="r0">{{choices_names_list[0]}}</label>
+			<input type="radio" id="r0" name="radio" value="0">
+		</div>
+        <div>
+			<label for="r1">{{choices_names_list[1]}}</label>
+			<input type="radio" id="r1" name="radio" value="1">
+		</div>
+        <div>
+			<label for="r2">{{choices_names_list[2]}}</label>
+			<input type="radio" id="r2" name="radio" value="2">
+		</div>
+        <button type="submit" class="btn btn-primary" href="/answer">Add to List</button>
+    </form>
+</div>
+{% endblock %}

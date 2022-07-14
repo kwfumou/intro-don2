@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h3 class="m-4">結合分布作成</h2>
+<div class="form">
+    <form class="m-4" action="/result" method='GET'>
+        <div class="row mb-1">
+            <h5>不規則励振パラメータ</h5>
+        </div>
+        <div class="form-control mb-4" aria-label="Default example">
+            <div class="row mb-3">
+                <div class="form-group col-sm-6">
+                    <label for="band_width">帯域幅：</label>
+                    <input type="text" value=0.01 class="form-control" name="band_width" aria-describedby="title-help">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="pdf">確率分布：</label>
+                    <select id="pdf" name="pdf" class="form-select" aria-label=".form-select-sm example">
+                        <option selected>Select PDF</option>
+                        <option value="bimodal">bimodal</option>
+                        <option value="laplace">laplace</option>
+                        <option value="gamma">gamma</option>
+                        <option value="log">log</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group col-sm-6">
+                    <label for="generation_time">励振生成時間：</label>
+                    <input type="text" value=400 class="form-control" name="generation_time">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="time_stamp">時間幅：</label>
+                    <input type="text" value=0.05 class="form-control" name="time_stamp">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <h5>結合分布生成パラメータ</h5>
+        </div>
+        <div class="form-control mb-4" aria-label="Default example"> 
+            <div class="row mb-3">
+                <div class="form-group col-sm-6">
+                    <label for="num_sample">標本数 : </label>
+                    <input type="text" value=4000000 class="form-control" name="num_sample">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="time_stamp_response">時間幅 : </label>
+                    <input type="text" value=0.1 class="form-control" name="time_stamp_response">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group col-sm-6">
+                    <label for="response_time">励振入力時間 : </label>
+                    <input type="text" value=100 class="form-control" name="response_time">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <h5>グラフパラメータ</h5>
+        </div>
+        <div class="form-control mb-4" aria-label="Default example"> 
+            <div class="row mb-3">  
+                <div class="form-group col-sm-6">
+                    <label for="div">pin分割数(div)（1/div=pin幅） : </label>
+                    <input type="text" value=100 class="form-control" name="div">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="graph_range">グラフ範囲（一辺の長さ） : </label>
+                    <input type="text" value=5 class="form-control" name="graph_range">
+                </div>
+            </div>
+        </div>
+        <!--div class="form-group pb-3">
+            <label for="due">Due : </label>
+            <input type="date" name="due" required>
+        </div-->
+        <a class="btn btn-outline-primary" href="/" role="button">Return</a>
+        <button type="submit" class="btn btn-primary">Add to List</button>
+        <a class="btn btn-outline-primary" href="/status_list" role="button">Check List</a>
+    </form>
+</div>
+
+{% endblock %}
