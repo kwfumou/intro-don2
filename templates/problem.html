@@ -1,24 +1,174 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h3 class="m-4">第{{numberProblem}}問（{{numCorrect}}問正解）</h2>
-<div class="form">
-    <form class="m-4" method="POST">
-        <!--h6>{{sent_wav}}</h6-->
-        <audio controls="" src="/static/mp3/{{sent_wav}}" id="problem_sound"></audio>
-        <div>
-			<label for="r0">{{choices_names_list[0]}}</label>
-			<input type="radio" id="r0" name="radio" value="0">
-		</div>
-        <div>
-			<label for="r1">{{choices_names_list[1]}}</label>
-			<input type="radio" id="r1" name="radio" value="1">
-		</div>
-        <div>
-			<label for="r2">{{choices_names_list[2]}}</label>
-			<input type="radio" id="r2" name="radio" value="2">
-		</div>
-        <button type="submit" class="btn btn-primary" href="/answer">Add to List</button>
-    </form>
-</div>
+<script language="javascript" type="text/javascript">
+
+	function intRandom(min, max){
+		return Math.floor( Math.random() * (max - min + 1)) + min;
+	}
+
+	function makeRandList(min, max, len) {
+		var randoms = [];
+		/** 重複チェックしながら乱数作成 */
+		for(i = 0; i < len; i++){
+  			while(true){
+    			var tmp = intRandom(min, max);
+    			if(!randoms.includes(tmp)){
+    				randoms.push(tmp);
+    				break;
+    			}
+			}
+  		}
+		return randoms;
+	}
+
+    const IntroDon = class {
+        constructor() {
+			this.now_point = 0;
+			this.now_problem = 0;
+			this.music_list = [
+    		    "マリーゴールド",
+    		    "進撃の巨人",
+    		    "くら寿司",
+    		    "ハムす",
+    		    "れいこ",
+    		];
+			this.answer_number = -1;
+    		this.choices_list = [];
+			this.wav_name = "";
+		}
+
+		get getNowPoint() {
+			return this.now_point;
+		}
+
+		get getNowProblem() {
+			return this.now_problem;
+		}
+
+		get getWavName() {
+			return this.wav_name;
+		}
+
+		move2NextProblem = function() {
+
+			this.now_problem += 1;
+        	// alert("this.now_problem");
+			// alert(this.now_problem);
+			let mList = Object.values(this.music_list);
+			// alert(mList);
+        	var list_size = mList.length;
+        	this.choices_list = makeRandList(0,list_size-1,3);
+        	// alert("select_list");
+			// alert(this.choices_list);
+        	this.answer_number = this.choices_list[intRandom(0, this.choices_list.length-1)];
+        	this.wav_name = this.music_list[this.answer_number] + ".mp3";
+			// alert(this.wav_name);
+			console.log(this.wav_name);
+
+			button0.value = this.music_list[this.choices_list[0]];
+			button1.value = this.music_list[this.choices_list[1]];
+			button2.value = this.music_list[this.choices_list[2]];
+
+			// var target = document.getElementById("problem");
+    		// target.innerHTML = intro_don.getNowProblem;
+			// console.log("intro_don.getNowProblem");
+			// console.log(intro_don.getNowProblem);
+
+			// var target2 = document.getElementById("point");
+    		// target2.innerHTML = intro_don.getNowPoint;
+
+			var target = document.getElementById("condition");
+			target.innerHTML = "第" + intro_don.getNowProblem.toString() + "問（現在" + intro_don.getNowPoint.toString() + "問正解）";
+
+			var target3 = document.getElementById("problem_sound");
+			target3.src = "/static/audio/" + intro_don.getWavName;
+
+        	// choices_names_list = [this.music_list[index] for index in this.choices_list]
+			return 0;
+		}
+
+		answerTheQuestion = function(chosen_number) {
+
+			console.log("AnswerTheQuestion: Start!!");
+        	console.log("self.choices_list");
+			console.log(this.choices_list);
+			console.log("chosen_number");
+			console.log(this.choices_list[chosen_number]);
+			console.log("self.answer_number");
+			console.log(this.answer_number);
+
+        	if (this.choices_list[chosen_number]===this.answer_number) {
+				this.now_point += 1;
+				return true;
+			} else {
+				return false;
+			}
+		}
+    }
+
+	function onLoad() {
+		// alert("onload!!!");
+		var test = intro_don.move2NextProblem();
+	}
+
+	function onClick0() {
+		// alert("onClick0");
+		if (intro_don.answerTheQuestion(0)) {
+			alert("成功！！");
+		} else {
+			alert("残念！！");
+		}
+		var test = intro_don.move2NextProblem();
+	}
+
+	function onClick1() {
+		if (intro_don.answerTheQuestion(1)) {
+			alert("成功！！");
+		} else {
+			alert("残念！！");
+		}
+		var test = intro_don.move2NextProblem();
+	}
+
+	function onClick2() {
+		if (intro_don.answerTheQuestion(2)) {
+			alert("成功！！");
+		} else {
+			alert("残念！！");
+		}
+		var test = intro_don.move2NextProblem();
+	}
+
+	var intro_don = new IntroDon();
+
+</script>
+
+<body onload="onLoad()">
+	<h2 class="m-4" id="condition"></h2>
+	<div class="form">
+	    <form class="m-4" method="POST">
+	        <!--h6>{{sent_wav}}</h6-->
+			<div>
+				<audio controls="" src="/static/audio/マリーゴールド.mp3" id="problem_sound"></audio>
+			</div>
+			<div>
+				<input type="button" class="btn btn-primary" value="button0" id="btn0">
+				<input type="button" class="btn btn-outline-primary" value="button1" id="btn1">
+				<input type="button" class="btn btn-primary" value="button2" id="btn2">
+			</div>
+	    </form>
+	</div>
+	</h3>
+</body>
+
+<script>
+	let button0 = document.getElementById('btn0');
+	let button1 = document.getElementById('btn1');
+	let button2 = document.getElementById('btn2');
+
+	button0.onclick = onClick0;
+	button1.onclick = onClick1;
+	button2.onclick = onClick2;
+</script>
 {% endblock %}
