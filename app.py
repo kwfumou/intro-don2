@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 # from Intro_don import IntroDon
 # instance_introdon = IntroDon()
 
+RankingDic = {}
 
 UPLOAD_FOLDER = '/mp3'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -22,11 +23,17 @@ def start():
 
 @app.route('/problem')
 def problem():
-    return render_template('problem.html')
+    return render_template('problem.php')
 
-@app.route('/sum_point')
+@app.route('/grade', methods=['GET','POST'])
 def sum_point():
-    return render_template('sum_point.html')
+    print("request.method: ", request.method)
+    test = request.args.get('tokuten')
+    print("test: ",test)
+    # result_point = request.get_json() # get_json()でデータの受け取り
+    # print("result point: ",result_point)
+    print("gradeへ遷移")
+    return render_template('grade.html')
 
 if __name__ == "__main__":
     # app.run(debug=True)
