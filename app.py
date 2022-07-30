@@ -23,7 +23,7 @@ def start():
 
 @app.route('/problem')
 def problem():
-    return render_template('problem.php')
+    return render_template('problem.html')
 
 @app.route('/grade', methods=['GET','POST'])
 def sum_point():
